@@ -81,7 +81,7 @@ fetch(url, options)
     // Read selectedSeason And selectedCategory
     const selectedSeason = seasons.value;
     const selectedCategory = categories.value;
-    console.log(selectedCategory);
+    //console.log(selectedCategory);
   
     // Call validateSelectedValues function
     if (validateSelectedValues(selectedSeason, selectedCategory, validationError)) {

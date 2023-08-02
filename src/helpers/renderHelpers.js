@@ -1,15 +1,9 @@
 import { renderCardWithData } from "../views/displayCard.js";
 
-
 export function renderSeasonsOptions(options, seasonSelect) {
-  // Looping On Options
-  options.forEach((option) => {
-    const optionEle = `<option value="${option}">${option}</option>`;
-    seasonSelect.innerHTML += optionEle;
-  });
+  seasonSelect.innerHTML = options.map((option) => `<option value="${option}">${option}</option>`).join("");
 }
 
-// [5] Render Formula Data
 export function renderFormulaData(formulaData, formulaContent) {
   const { category, results } = formulaData;
 
@@ -17,28 +11,21 @@ export function renderFormulaData(formulaData, formulaContent) {
   formulaContent.innerHTML = "";
 
   // Looping On formula Items And Create The Cards
-  for (let i in results) {
-    const item = results[i];
-
-  
-
+  results.forEach((item) => {
     renderCardWithData(category, item, formulaContent);
-  }
+  });
 }
 
+export function updateUrl(selectedCategory, selectedSeason) {
+  let url;
 
-   // Check Selected Category
+  if (selectedCategory === "drivers" || selectedCategory === "teams") {
+    url = `https://api-formula-1.p.rapidapi.com/rankings/${selectedCategory}?season=${selectedSeason}`;
+  } else if (selectedCategory === "races") {
+    url = `https://api-formula-1.p.rapidapi.com/${selectedCategory}?season=${selectedSeason}`;
+  } else {
+    url = `https://api-formula-1.p.rapidapi.com/${selectedCategory}`;
+  }
 
-   export function updateUrl(selectedCategory, selectedSeason){
-    let url;
-
-    if (selectedCategory === "drivers" || selectedCategory === "teams") {
-          url = `https://api-formula-1.p.rapidapi.com/rankings/${selectedCategory}?season=${selectedSeason}`;
-        } else if (selectedCategory === "races") {
-          url = `https://api-formula-1.p.rapidapi.com/${selectedCategory}?season=${selectedSeason}`;
-        } else {
-         url = `https://api-formula-1.p.rapidapi.com/${selectedCategory}`;
-        }
-      return url;
-       
-} 
+  return url;
+}

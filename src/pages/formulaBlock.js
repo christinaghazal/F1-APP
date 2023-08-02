@@ -1,40 +1,28 @@
 import { createForm } from "./createForm.js";
 
 export function createFormulaBlock() {
-  const createSection = (id) => {
-    const section = document.createElement("section");
-    section.id = id;
-    return section;
+  const createElement = (type, className, id = null) => {
+    const element = document.createElement(type);
+    if (className) {
+      element.className = className;
+    }
+    if (id) {
+      element.id = id;
+    }
+    return element;
   };
 
-  const createDiv = (className) => {
-    const div = document.createElement("div");
-    div.className = className;
-    return div;
-  };
-
-  const createHeading = (className) => {
-    const heading = document.createElement("h1");
-    heading.className = className;
-    return heading;
-  };
-
-  const section = createSection("formula-block");
-  const divContainer = createDiv("container");
-  const selectForm = createForm();
-  const httpErrorMsg = createHeading("http_error_msg");
-  const formulaContent = createDiv("formula-content");
-  const formulaNewsDiv = createDiv("formula-news");
-  const formulaNewsContainer = createDiv("news_container");
+  const section = createElement("section", null, "formula-block");
+  const divContainer = createElement("div", "container");
+  const httpErrorMsg = createElement("h1", "http_error_msg");
+  const formulaContent = createElement("div", "formula-content");
+  const formulaNewsDiv = createElement("div", "formula-news");
+  const formulaNewsContainer = createElement("div", "news_container");
 
   formulaNewsDiv.appendChild(formulaNewsContainer);
 
-  divContainer.appendChild(selectForm);
-  divContainer.appendChild(httpErrorMsg);
-  divContainer.appendChild(formulaContent);
-  divContainer.appendChild(formulaNewsDiv);
-
+  const selectForm = createForm();
+  divContainer.append(selectForm, httpErrorMsg, formulaContent, formulaNewsDiv);
   section.appendChild(divContainer);
-
   document.body.appendChild(section);
 }
